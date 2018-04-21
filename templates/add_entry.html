@@ -1,19 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
 <br />
+{% with messages = get_flashed_messages() %}
+    {% for message in messages %}
+        <div class='error'>{{message}}</div>
+    {% endfor %}
+{% endwith %}
+
 <form method='POST'>
     <table>
         <tr>
-            <td><lable>Title of your new blog:</lable></td>
+            <td><lable>Title of your new blog entry:</lable></td>
         </tr>
         <tr>
-            <td><input type='text' name='blog-title'></td>
+            <td><input type='text' name='title'></td>
         </tr>
         <tr>
-            <td><lable>Content of your new blog:</lable></td>
+            <td><lable>Content of your new blog entry:</lable></td>
         </tr>
         <tr>
-            <td><textarea name='blog-content'></textarea></td>
+            <td><textarea name='content'></textarea></td>
         </tr>
         <tr>
             <td><input type='submit' value='Submit New Blog'></td>
