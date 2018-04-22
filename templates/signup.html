@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form>
+        <table>
+            <tr>
+                <td><lable>Username:</lable></td>
+            </tr>
+            <tr>
+                <td><input type='text' name='username'></td>
+            </tr>
+            <tr>
+                <td><lable>Password:</lable></td>
+            </tr>
+            <tr>
+                <td><input type='text' name='password'></td>
+            </tr>
+            <tr>
+                <td><lable>Verify Password:</lable></td>
+            </tr>
+            <tr>
+                <td><input type='text' name='verify'></td>
+            </tr>
+        </table>
+        <input type=submit value='Submit Signup'>
+    </form>
+{% endblock %}

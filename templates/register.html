@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+{% with messages = get_flashed_messages() %}
+{% for message in messages %}
+    <div class='error'>{{message}}</div>
+{% endfor %}
+{% endwith %}
+    <form method='POST'>
+        <table>
+            <tr>
+                <td><lable>Username:</lable></td>
+            </tr>
+            <tr>
+                <td><input type='text' name='username'></td>
+            </tr>
+            <tr>
+                <td><lable>Password:</lable></td>
+            </tr>
+            <tr>
+                <td><input type='text' name='password'></td>
+            </tr>
+            <tr>
+                <td><lable>Verify Password:</lable></td>
+            </tr>
+            <tr>
+                <td><input type='text' name='verify'></td>
+            </tr>
+        </table>
+        <input type='submit' value='Submit Register Form'>
+    </form>
+{% endblock %}

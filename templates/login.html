@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form method='POST'>
+        <table>
+            <tr>
+                <td><lable>Username:</lable></td>
+            </tr>
+            <tr>
+                <td><input type='text' name='username'></td>
+            </tr>
+            <tr>
+                <td><lable>Password:</lable></td>
+            </tr>
+            <tr>
+                <td><input type='text' name='password'></td>
+            </tr>
+        </table>
+        <input type='submit' value='login'>
+    </form>
+
+{% endblock %}
