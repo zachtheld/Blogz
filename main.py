@@ -11,13 +11,12 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(120), unique=True)
     password = db.Column(db.String(120))
-    blogs = db.relationship('Blog', backref='owner')
+    blogs = db.relationship('Blog', backref='owner', lazy='joined')
 
     def __init__(self, username, password):
         self.username = username
         self.password = password
         
-
 class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120))
@@ -35,9 +34,16 @@ class Blog(db.Model):
         else:
             return False
 
+@app.before_request
+def require_login():
+    allowed_routes = ['login', 'register', 'index']
+    if not ('username' in session or request.endpoint in allowed_routes):
+        return redirect('/login')
+
 @app.route('/')
 def index():
-    return redirect('/blog')
+    users = User.query.all()
+    return render_template('all_users.html', users=users)
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -84,16 +90,21 @@ def logout():
     del session['username']
     return redirect('/login')
 
-
 @app.route('/blog', methods=['POST', 'GET'])
 def blogs():
     entry_id = request.args.get('id')
+    usr = request.args.get('user')
     if (entry_id):
         entry = Blog.query.get(entry_id)
         return render_template('single_entry.html', entry=entry)
+    elif (usr):
+        owner = User.query.filter_by(username=usr).first()
+        entries = Blog.query.filter_by(owner_id=owner.id).all()
+        return render_template('blog_entrys.html', entries=entries)
 
     blog_entry = Blog.query.all()
-    return render_template('blog_entrys.html', entries=blog_entry)
+    users = User.query.all()
+    return render_template('blog_entrys.html', entries=blog_entry, owners=users)
 
 @app.route('/newpost', methods=['POST', 'GET'])
 def add_new_entry():
@@ -116,12 +127,6 @@ def add_new_entry():
     
     else:
         return render_template('add_entry.html')
-
-
-
-
-
-
 
 if __name__=='__main__':
     app.run()

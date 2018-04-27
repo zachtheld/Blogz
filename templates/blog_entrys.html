@@ -2,8 +2,11 @@
 {% block content %}
     <h1>Blog Entries</h1>
     {% for entry in entries %}
-        <a href='/blog?1d={{ entry.id }}'><h2>{{entry.title}}</h2></a>
+    
+        <a href='/blog?id={{entry.id}}'><h2>{{entry.title}}</h2></a>
         <h3>{{entry.body}}</h3>
-        <hr />
+        <a href='/blog?user={{entry.owner.username}}'><h3>{{entry.owner.username}}</h3></a>
+    
     {% endfor %}
+    
 {% endblock %}

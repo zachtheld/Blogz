@@ -2,4 +2,5 @@
 {% block content %}
     <h1>{{entry.title}}</h1>
     <h3>{{entry.body}}</h3>
+    <a href='/blog?user={{entry.owner.username}}'><p>{{entry.owner.username}}</p></a>
 {% endblock %}
